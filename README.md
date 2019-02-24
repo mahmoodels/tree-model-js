@@ -1,5 +1,28 @@
 # TreeModel
 
+### IMPORTANT NOTES
+
+The difference between this package and the original one is that, i changed the callback of the `.walk` to be a promise
+
+ex:
+
+```js
+root.walk({ strategy: 'breadth' }, function (node) {
+    if (node.isFinished) {
+        //finished processing All nodes
+        console.log('finished processing All nodes');
+        return callback();
+    }
+    return new Promise((resolve, reject) => {
+        asyncFunction(node, () => {
+            //finished processing the current node
+            return resolve(false/*this mean you need to continue walk thru the tree ||||| set it to true to break */);
+        });
+    });
+});
+```
+
+
 Manipulate and traverse tree-like structures in javascript.
 
 For download and demos, please [visit TreeModel website](http://jnuno.com/tree-model-js).
