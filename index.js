@@ -238,7 +238,7 @@ module.exports = (function () {
     (function processQueue() {
       var i, childCount, node;
       if (queue.length === 0) {
-        return;
+        return callback.call(context, { "isFinished": true });
       }
       node = queue.shift();
       for (i = 0, childCount = node.children.length; i < childCount; i++) {
