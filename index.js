@@ -244,9 +244,11 @@ module.exports = (function () {
       for (i = 0, childCount = node.children.length; i < childCount; i++) {
         queue.push(node.children[i]);
       }
-      if (callback.call(context, node) !== false) {
-        processQueue();
-      }
+      callback.call(context, node).then((breakExecution) => {
+        if (breakExecution === false) {
+          processQueue();
+        }
+      });
     })();
   };
 
